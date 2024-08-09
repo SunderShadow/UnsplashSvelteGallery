@@ -38,7 +38,7 @@
 </script>
 
 <form action="">
-    <Search bind:text={searchText}/>
+    <input type="text" bind:value={searchText}>
     <button on:click={searchPhoto}>Search</button>
 </form>
 <div class="gallery">
