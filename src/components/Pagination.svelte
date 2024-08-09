@@ -43,52 +43,35 @@
     fillRightSidePages()
 </script>
 
-<div class="pagination">
+<div class="pagination gap-2">
     {#if currentPage > leftSidePageMax + 1}
-        <button on:click={() => setCurrentPage(1)}>1</button>
-        <span>...</span>
+        <li on:click={() => setCurrentPage(1)} class="page-item page-link">1</li>
+        <li class="disabled page-item page-link">...</li>
     {/if}
 
     {#each leftPageNums as i}
-        <button on:click={() => setCurrentPage(i)}>{i}</button>
+        <li on:click={() => setCurrentPage(i)} class="page-item page-link">{i}</li>
     {/each}
 
-    <button class="current">{currentPage}</button>
+    <li class="page-item page-link active">{currentPage}</li>
 
     {#each rightPageNums as i}
-        <button on:click={() => setCurrentPage(i)}>{i}</button>
+        <li on:click={() => setCurrentPage(i)} class="page-item page-link">{i}</li>
     {/each}
 
     {#if totalPages - currentPage > rightSidePageMax}
-        <span>...</span>
-        <button on:click={() => setCurrentPage(totalPages)}>{totalPages}</button>
+        <li class="disabled page-item page-link">...</li>
+        <li on:click={() => setCurrentPage(totalPages)} class="page-item page-link">{totalPages}</li>
     {/if}
 </div>
 
 <style>
-    .pagination {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-    }
 
-
-    span {
-      user-select: none;
-    }
-
-    button {
-      display: flex;
-
-      border: none;
-      padding: .5em;
-      opacity: .5;
-      background-color: blanchedalmond;
-
+    li {
       cursor: pointer;
     }
 
-    .pagination .current {
-      opacity: 1;
+    li.disabled {
+      cursor: default;
     }
 </style>

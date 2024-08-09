@@ -39,26 +39,42 @@
     let [minColWidth, maxColWidth, gap] = [275, 700, 20]
 </script>
 
-<form action="">
-    <input type="text" bind:value={searchText}>
-    <button on:click={searchPhoto}>Search</button>
+<form class="input-group container mt-4">
+    <input class="form-control" type="text" bind:value={searchText}>
+    <button class="btn btn-outline-dark" on:click={searchPhoto}>Search</button>
 </form>
-<Masonry
-        {minColWidth} {maxColWidth} {gap}
-        items={images}
-        let:item
->
-    <img src={item.urls.regular} alt="">
-</Masonry>
+
+<div class="container-fluid mt-4">
+    <Masonry
+            {minColWidth} {maxColWidth} {gap}
+            items={images}
+            let:item
+    >
+        <img src={item.urls.regular} alt="">
+    </Masonry>
+</div>
 
 {#if totalPages}
-    <Pagination bind:currentPage={currentPage} {totalPages}/>
+    <div class="pagination-container">
+        <Pagination bind:currentPage={currentPage} {totalPages}/>
+    </div>
 {/if}
 
 <style>
     img {
       max-width: 100%;
       background-color: #000;
-      object-fit: fill;
+    }
+
+    .pagination-container {
+      display: flex;
+      justify-content: center;
+
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      padding: 2rem 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.5);
     }
 </style>
