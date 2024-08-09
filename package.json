@@ -20,6 +20,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"svelte-bricks": "^0.2.1",
 		"unsplash-js": "^7.0.19"
 	}
 }

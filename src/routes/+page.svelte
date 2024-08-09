@@ -3,12 +3,12 @@
     import {unsplash} from "$lib"
 
     // Components
-    import Search from "../components/Search.svelte"
+    import Masonry from "svelte-bricks";
     import Pagination from "../components/Pagination.svelte"
 
     export const ssr = false
 
-    const IMAGES_PER_PAGE = 9
+    const IMAGES_PER_PAGE = 20
     let searchText  = ''
 
     let currentPage = 1
@@ -35,37 +35,28 @@
     }
 
     $: toPage(currentPage)
+
+    let [minColWidth, maxColWidth, gap] = [275, 700, 20]
 </script>
 
 <form action="">
     <input type="text" bind:value={searchText}>
     <button on:click={searchPhoto}>Search</button>
 </form>
-<div class="gallery">
-    {#each images as image}
-        <div>
-            <img class="img" src={image.urls.regular} alt="">
-        </div>
-    {/each}
-</div>
+<Masonry
+        {minColWidth} {maxColWidth} {gap}
+        items={images}
+        let:item
+>
+    <img src={item.urls.regular} alt="">
+</Masonry>
 
 {#if totalPages}
     <Pagination bind:currentPage={currentPage} {totalPages}/>
 {/if}
 
 <style>
-    .gallery {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-
-      width: 80%;
-      margin: 0 auto;
-
-      gap: 1rem;
-    }
-
-    .img {
-      max-height: 300px;
+    img {
       max-width: 100%;
       background-color: #000;
       object-fit: fill;
